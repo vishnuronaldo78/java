@@ -1,0 +1,41 @@
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class permutation {
+public static HashSet<String> hs = new HashSet<String>();
+public static void permute(String s){
+    permuteHelper(s, "");
+} 
+public static void permuteHelper(String s, String chosen){      
+//Base case :
+String temp = s;
+if(s.length() == 0 || s == null){
+     hs.add(chosen);
+} else {
+          //valid case    
+        // 1. choose 2. explore 3.unchoose
+        for(int i=0; i<s.length(); i++){
+             chosen += s.charAt(i);
+                      //choose
+            s = s.substring(0,i) + s.substring(i+1);
+            permuteHelper(s, chosen);
+             //explore
+            s = temp;                            //unchoose
+            chosen = chosen.substring(0,chosen.length()-1); 
+        }
+    }    
+}
+public static void printResult(HashSet<String> hs){
+      for(String temp : hs){
+        System.out.println(temp);
+        }    
+}
+public static void main(String[] args) {
+	Scanner s = new Scanner(System.in);
+    String str = s.next();         
+    permute(str);    
+    printResult(hs);
+    System.out.println(hs.size()); 
+    s.close();
+    }
+}
